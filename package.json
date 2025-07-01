@@ -5,6 +5,7 @@
   },
   "name": "vr-exp-webapp",
   "scripts": {
+    "build-candid": "cargo build --release --target wasm32-unknown-unknown --package vr-exp-webapp-backend && candid-extractor target/wasm32-unknown-unknown/release/vr_exp_webapp_backend.wasm > vr-exp-webapp-backend.did && mv vr-exp-webapp-backend.did src/vr-exp-webapp-backend",
     "build": "npm run build --workspaces --if-present",
     "prebuild": "npm run prebuild --workspaces --if-present",
     "pretest": "npm run prebuild --workspaces --if-present",
