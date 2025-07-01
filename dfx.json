@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "vr-exp-webapp-backend": {
+      "candid": "src/vr-exp-webapp-backend/vr-exp-webapp-backend.did",
+      "package": "vr-exp-webapp-backend",
+      "type": "rust"
+    },
+    "vr-exp-webapp-frontend": {
+      "dependencies": [
+        "vr-exp-webapp-backend"
+      ],
+      "source": [
+        "src/vr-exp-webapp-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "vr-exp-webapp-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
