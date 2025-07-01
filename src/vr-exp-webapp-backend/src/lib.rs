@@ -1,4 +1,7 @@
-#[ic_cdk::query]
-fn greet(name: String) -> String {
-    format!("Hello, {}!", name)
+use ic_cdk_macros::query;
+
+#[query]
+fn hello_world() -> String {
+	return "Hello World".to_string();
 }
+
