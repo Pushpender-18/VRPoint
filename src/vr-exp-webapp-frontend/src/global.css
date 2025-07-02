@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+:root {
+	--bg-color: #06121B;
+	--secondary: #BED1D9;
+	--accent: #43A7CB;
+	--primary: #237597;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: var(--bg-color);
+	color: white;
+	font-family: "Roboto", sans-serif;
+	position: absolute;
+}
+
+.hide-scrollbar {
+	-ms-overflow-style: none;
+	/* IE and Edge */
+	scrollbar-width: none;
+	/* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
 .browser-warning {
-	visibility: hidden;
+	display: none;
+}
+
+.hero-gradient {
+	background: radial-gradient(circle at 50% 30%, #184A5C, #0A1619);
 }

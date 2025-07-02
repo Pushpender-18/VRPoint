@@ -1,0 +1,33 @@
+.bg-gd-l,
+.bg-gd-r {
+	position: inherit;
+	width: 40vw;
+	height: 100vh;
+	z-index: -1;
+	filter: blur(128px);
+	background: radial-gradient(rgba(67, 167, 203, 0.3) 0%, rgba(67, 167, 203, 0.1) 20%, transparent 50%);
+}
+
+.bg-gd-l {
+	left: -20vw;
+}
+
+.bg-gd-r {
+	left: 80vw;
+}
+.gd-l,
+.gd-r {
+	position: inherit;
+	width: 50vw;
+	height: 72px;
+	z-index: -1;
+}
+
+.gd-l {
+	background: radial-gradient(circle at 0% 50%, rgba(67, 167, 203, 0.1), rgba(6, 18, 27, 0));
+}
+
+.gd-r {
+	right: 0px;
+	background: radial-gradient(circle at 100% 50%, rgba(67, 167, 203, 0.1), rgba(6, 18, 27, 0));
+}
