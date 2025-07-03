@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPageNavBar() {
-	const n = useNavigate();
+	const navigator = useNavigate();
 
 	async function btnHandler() {
 		const result = await window.ic.plug.isConnected();
@@ -14,7 +14,7 @@ export default function LandingPageNavBar() {
 				return
 			}
 		}
-		n("/home");
+		navigator("/home");
 	}
 
 	return (
