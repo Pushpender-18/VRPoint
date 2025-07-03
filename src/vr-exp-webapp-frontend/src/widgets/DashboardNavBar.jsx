@@ -16,7 +16,7 @@ export default function DashboardNavBar() {
 				<div className="flex gap-7 items-center">
 					{/* Searchbox */}
 					<form action="">
-						<input type="text" name="search-box" id="search-box" className="bg-[#ffffff10] backdrop-blur-md border-2 border-[#BED1D9] w-3xs h-10 rounded-2xl placeholder:text-[#BED1D970] placeholder:pl-6" placeholder="Search" />
+						<input type="text" name="search-box" id="search-box" className="bg-[#ffffff10] backdrop-blur-md border-2 border-[#BED1D9] w-3xs h-10 rounded-2xl placeholder:text-[#BED1D970] pl-6 text-[#BED1D9]" placeholder="Search" />
 					</form>
 
 					{/* Bell Icon */}
