@@ -21,8 +21,7 @@ export default function LandingPageNavBar() {
 		<nav className="w-screen h-18 bg-[#ffffff03] flex items-center justify-center border-b-1 border-[#ffffff10]">
 			<div className="w-7xl  flex justify-between items-center">
 				<div className="flex items-center">
-					<img src="/favicon.png" alt="Logo" className="w-12 h-12" />
-					<p className="text-2xl font-bold ml-8">VRPoint</p>
+					<p className="text-4xl font-bold">VRPoint</p>
 				</div>
 				<div className="flex gap-12 text-[#BED1D9]">
 					<a href="#hero" className="hover:text-[#BED1D9aa]">Home</a>

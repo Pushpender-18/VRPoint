@@ -1,6 +1,6 @@
 .bg-gd-l,
 .bg-gd-r {
-	position: inherit;
+	position: fixed;
 	width: 40vw;
 	height: 100vh;
 	z-index: -1;
