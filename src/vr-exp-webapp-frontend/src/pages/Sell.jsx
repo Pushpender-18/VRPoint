@@ -2,12 +2,17 @@ import CancelBtn from "../widgets/CancelBtn";
 import DescriptionBtn from "../widgets/DescriptionBtn";
 import Footer from "../widgets/Footer";
 
-export default function SellPage() {
-	const dummyData = [["Roller Coaster World", "4 ICP", "22-04-2025"],
-	["Roller Coaster World", "4 ICP", "22-04-2025"],
-	["Roller Coaster World", "4 ICP", "22-04-2025"],
-	["Roller Coaster World", "4 ICP", "22-04-2025"]];
+const dummyData = [["Roller Coaster World", "4 ICP", "22-04-2025"],
+["Roller Coaster World", "4 ICP", "22-04-2025"],
+["Roller Coaster World", "4 ICP", "22-04-2025"],
+["Roller Coaster World", "4 ICP", "22-04-2025"]];
 
+export default function SellPage() {
+	function descriptionBtnHandler(index) {
+		console.log("Fuckk of");
+		const box = document.getElementById("desc-" + index.toString());
+		box.classList.toggle("hidden");
+	}
 
 	return (
 		<div className="flex flex-col items-center">
@@ -48,20 +53,25 @@ export default function SellPage() {
 					</div>
 					{/* Entries */}
 					{dummyData.map((data, index) => (
-
-						<div className="w-7xl h-[72px] bg-white/3 border-b-2 border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]">
-							<div className="w-[110px] py-3 flex justify-center">{index + 1}</div>
-							<div className="w-[470px] py-3 flex justify-center">{data[0]}</div>
-							<div className="w-[160px] py-3 flex justify-center">{data[1]}</div>
-							<div className="w-[260px] py-3 flex justify-center">{data[2]}</div>
-							<div className="w-[130px] py-3 flex justify-center"><DescriptionBtn btnHandler={() => { }} /></div>
-							<div className="w-[130px] py-3 flex justify-center"><CancelBtn btnHandler={() => { }} /></div>
+						<div className="flex flex-col bg-white/3 border-b-2 border-[#BED1D920]">
+							<div className="w-7xl px-4 flex items-center text-[#BED1D9] text-[18px]">
+								<div className="w-[110px] py-3 flex justify-center">{(index + 1).toString() + "."}</div>
+								<div className="w-[470px] py-3 flex justify-center">{data[0]}</div>
+								<div className="w-[160px] py-3 flex justify-center">{data[1]}</div>
+								<div className="w-[260px] py-3 flex justify-center">{data[2]}</div>
+								<div className="w-[130px] py-3 flex justify-center"><DescriptionBtn btnHandler={() => { descriptionBtnHandler(index) }} /></div>
+								<div className="w-[130px] py-3 flex justify-center"><CancelBtn btnHandler={() => { }} /></div>
+							</div>
+							<div id={"desc-" + index.toString()} className="w-7xl px-16 text-justify text-[#BED1D9] mb-8 hidden">
+								<h1 className="font-bold mb-2">Description:</h1>
+								<h3 className="">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</h3>
+							</div>
 						</div>
 					))}
 				</div>
 			</section>
 
-			<Footer/>
+			<Footer />
 		</div>
 	);
 }

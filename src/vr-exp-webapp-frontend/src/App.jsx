@@ -10,10 +10,10 @@ function App() {
 
   return (
     <div className="absolute">
-      <div class="bg-gd-l"></div>
-      <div class="bg-gd-r"></div>
-      <div class="gd-l"></div>
-      <div class="gd-r"></div>
+      <div className="bg-gd-l"></div>
+      <div className="bg-gd-r"></div>
+      <div className="gd-l"></div>
+      <div className="gd-r"></div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
