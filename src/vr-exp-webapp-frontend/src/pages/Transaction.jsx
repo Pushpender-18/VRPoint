@@ -21,7 +21,7 @@ export default function TransactionPage() {
 				</div>
 				{/* Entries */}
 				{dummyData.map((data, index) => (
-					<div className="w-7xl h-[72px] px-4 bg-white/3 border-b-2 border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]">
+					<div className="w-7xl px-4 bg-white/3 border-b-2 border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]">
 						<div className="w-[110px] py-3 flex justify-center">{(index + 1).toString() + "."}</div>
 						<div className="w-[470px] py-3 flex justify-center">{data[0]}</div>
 						<div className="w-[160px] py-3 flex justify-center">{data[1]}</div>

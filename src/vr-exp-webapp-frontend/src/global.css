@@ -1,19 +1,12 @@
 @import "tailwindcss";
 
-:root {
-	--bg-color: #06121B;
-	--secondary: #BED1D9;
-	--accent: #43A7CB;
-	--primary: #237597;
-}
-
 html {
 	scroll-behavior: smooth;
 	overflow-x: hidden;
 }
 
 body {
-	background-color: var(--bg-color);
+	background-color: #06121B;
 	color: white;
 	font-family: "Roboto", sans-serif;
 	position: absolute;
@@ -30,9 +23,6 @@ body {
 	display: none;
 }
 
-.browser-warning {
-	display: none;
-}
 
 .hero-gradient {
 	background: radial-gradient(circle at 50% 30%, #184A5C, #0A1619);

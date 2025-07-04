@@ -1,3 +1,21 @@
+type NFT = record {
+  id : nat64;
+  owner : text;
+  description : text;
+  item_name : text;
+  bucket_link : text;
+  price : nat32;
+  time_stamp : text;
+};
+type Txn = record { nft_token_id : nat64; txn_type : text; txn_id : nat64 };
 service : {
-	hello_world : () -> (text) query
+  buy_nft : (text, nat64) -> (bool);
+  create_nft : (text, text, text, text, text) -> (bool);
+  get_buy_marketplace : () -> (vec NFT) query;
+  get_my_nfts : (text) -> (vec NFT) query;
+  get_nft_data : (nat64) -> (opt NFT) query;
+  get_sell_orders : (text) -> (vec NFT) query;
+  get_transactions : (text) -> (vec Txn) query;
+  remove_sell_order : (text, nat64) -> (bool);
+  sell_nft : (text, nat64, nat32) -> (bool);
 }
