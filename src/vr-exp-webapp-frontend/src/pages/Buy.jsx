@@ -2,21 +2,36 @@ import BuyBtn from "../widgets/BuyBtn";
 import DescriptionBtn from "../widgets/DescriptionBtn";
 import Footer from "../widgets/Footer";
 
-const dummyData = [["Roller Coaster World", "4 ICP", "22-04-2025"],
-["Roller Coaster World", "4 ICP", "22-04-2025"],
-["Roller Coaster World", "4 ICP", "22-04-2025"],
-["Roller Coaster World", "4 ICP", "22-04-2025"]];
+// const dummyData = [["Roller Coaster World", "4 ICP", "22-04-2025"],
+// ["Roller Coaster World", "4 ICP", "22-04-2025"],
+// ["Roller Coaster World", "4 ICP", "22-04-2025"],
+// ["Roller Coaster World", "4 ICP", "22-04-2025"]];
+
+const dummyData = [];
 
 export default function BuyPage() {
 	function descriptionBtnHandler(index) {
-		console.log("Fuckk of");
-		const box = document.getElementById("desc-" + index.toString());
-		box.classList.toggle("hidden");
+		document.getElementById("desc-" + index.toString()).classList.toggle("hidden");
 	}
 
-	return (
-		<div className="flex flex-col items-center">
-			<div className="w-7xl mt-14 mb-26 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
+	let content = null;
+
+	if (dummyData.length == 0) {
+		content = <div className="w-7xl mt-14 mb-26 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
+				{/* Heading */}
+				<div className="w-7xl bg-[#43A7CB20] px-4 border-b-2 border-[#BED1D920] rounded-t-2xl flex items-center text-[#BED1D9] text-[20px] font-bold">
+					<div className="w-[110px] py-3 flex justify-center">S No.</div>
+					<div className="w-[470px] py-3 flex justify-center">Item Name</div>
+					<div className="w-[160px] py-3 flex justify-center">Price</div>
+					<div className="w-[260px] py-3 flex justify-center">Date</div>
+					<div className="w-[130px] py-3 flex justify-center">Description</div>
+					<div className="w-[130px] py-3 flex justify-center">Buy</div>
+				</div>
+				
+				<div className="h-96 flex justify-center items-center text-[#BED1D950] text-2xl tracking-wider">Nothing to show</div>
+			</div>
+	} else { 
+		content = <section id="buy-nft-list" className="w-7xl mt-14 mb-26 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
 				{/* Heading */}
 				<div className="w-7xl bg-[#43A7CB20] px-4 border-b-2 border-[#BED1D920] rounded-t-2xl flex items-center text-[#BED1D9] text-[20px] font-bold">
 					<div className="w-[110px] py-3 flex justify-center">S No.</div>
@@ -43,7 +58,12 @@ export default function BuyPage() {
 						</div>
 					</div>
 				))}
-			</div>
+			</section>
+	}
+
+	return (
+		<div className="flex flex-col items-center">
+			{content}
 
 			<Footer />
 		</div>
