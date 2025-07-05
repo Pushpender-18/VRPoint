@@ -8,7 +8,7 @@ export default function DashboardNavBar() {
 					<div className="flex gap-11 text-[#BED1D9]">
 						<a href="#" className="hover:text-[#BED1D970]">Home</a>
 						<a href="#" className="hover:text-[#BED1D970]">Explore</a>
-						<a href="#" className="hover:text-[#BED1D970]">Create</a>
+						<a href="/create" className="hover:text-[#BED1D970]">Create</a>
 					</div>
 				</div>
 

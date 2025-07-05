@@ -1,17 +1,39 @@
+import { useNavigate } from "react-router-dom";
+import { vr_exp_webapp_backend } from "../../../declarations/vr-exp-webapp-backend";
 import Footer from "../widgets/Footer";
 import PlayBtn from "../widgets/PlayBtn";
 import SellBtn from "../widgets/SellBtn";
+import { useState } from "react";
 
-// const dummyData = [["Roller Coaster World", "4 ICP", "22-04-2025"],
-// ["Roller Coaster World", "4 ICP", "22-04-2025"],
-// ["Roller Coaster World", "4 ICP", "22-04-2025"],
-// ["Roller Coaster World", "4 ICP", "22-04-2025"]];
 
-const dummyData = [];
+async function getPrincipalID() {
+	if (window.ic.plug) {
+		const isConnected = await window.ic.plug.isConnected();
+		if (!isConnected) {
+			await window.ic.plug.requestConnect();
+		}
+		const principal_id = await window.ic.plug.getPrincipal();
+		return principal_id;
+	}
+}
 
 export default function OwnedPage() {
+	async function getData() {
+		const principal_id = await getPrincipalID();
+		const data = await vr_exp_webapp_backend.get_my_nfts(principal_id.toText());
+		setNftData(data);
+	}
+
+	const [nftData, setNftData] = useState([]);
+	const naviagtor = useNavigate();
+	function sellBtnHandler() {
+		naviagtor("/home/sell");
+	}
+	
+	getData();
+
 	let content = null;
-	if (dummyData.length == 0) {
+	if (nftData.length == 0) {
 		content =
 			<section id="owned-nft-table" className="w-7xl mt-14 mb-26 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
 				{/* Heading */}
@@ -38,14 +60,14 @@ export default function OwnedPage() {
 			</div>
 
 			{/* Entries */}
-			{dummyData.map((data, index) => (
+			{nftData.map((data, index) => (
 				<div className="w-7xl px-4 bg-white/3 border-b-2 border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]">
 					<div className="w-[110px] py-3 flex justify-center">{(index + 1).toString() + "."}</div>
-					<div className="w-[470px] py-3 flex justify-center">{data[0]}</div>
-					<div className="w-[160px] py-3 flex justify-center">{data[1]}</div>
-					<div className="w-[260px] py-3 flex justify-center">{data[2]}</div>
+					<div className="w-[470px] py-3 flex justify-center">{data.item_name}</div>
+					<div className="w-[160px] py-3 flex justify-center">{data.price.toString() + " ICP"}</div>
+					<div className="w-[260px] py-3 flex justify-center">{data.time_stamp.split(" ")[0]}</div>
 					<div className="w-[130px] py-3 flex justify-center"><PlayBtn btnHandler={() => { }} /></div>
-					<div className="w-[130px] py-3 flex justify-center"><SellBtn btnHandler={() => { }} /></div>
+					<div className="w-[130px] py-3 flex justify-center"><SellBtn btnHandler={sellBtnHandler} /></div>
 				</div>
 			))}
 		</section>

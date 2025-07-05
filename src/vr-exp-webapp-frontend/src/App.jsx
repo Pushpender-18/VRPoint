@@ -5,6 +5,7 @@ import OwnedPage from './pages/Owned';
 import BuyPage from './pages/Buy';
 import SellPage from './pages/Sell';
 import TransactionPage from './pages/Transaction';
+import CreatePage from './pages/Create';
 
 function App() {
 
@@ -17,12 +18,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/home" element={<Home />} >
+          <Route path="home" element={<Home />} >
             <Route index element={<OwnedPage />}></Route>
             <Route path='buy' element={<BuyPage />}></Route>
             <Route path='sell' element={<SellPage />}></Route>
             <Route path='transaction' element={<TransactionPage />}></Route>
           </Route>
+          <Route path='create' element={<CreatePage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -11,7 +11,6 @@ const dummyData = [];
 
 export default function SellPage() {
 	function descriptionBtnHandler(index) {
-		console.log("Fuckk of");
 		const box = document.getElementById("desc-" + index.toString());
 		box.classList.toggle("hidden");
 	}

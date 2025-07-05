@@ -7,8 +7,7 @@ export default function LandingPageNavBar() {
 		const result = await window.ic.plug.isConnected();
 		if (!result) {
 			try {
-				const publicKey = await window.ic.plug.requestConnect();
-				console.log(`The connected user's public key is:`, publicKey);
+				await window.ic.plug.requestConnect();
 			} catch (e) {
 				console.log(e);
 				return
