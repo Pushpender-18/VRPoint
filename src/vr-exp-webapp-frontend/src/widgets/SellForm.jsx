@@ -63,6 +63,8 @@ export default function SellForm() {
 			alert("Error Occured");
 		}
 
+		window.location.reload();
+
 	}
 
 	const navigator = useNavigate();
