@@ -4,7 +4,7 @@ import OwnedTable from "../widgets/OwnedTable";
 export default function OwnedPage() {
 	return (
 		<div className="flex flex-col items-center">
-			<section id="owned-nft-table" className="w-7xl mt-14 mb-26 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
+			<section id="owned-nft-table" className="w-7xl mt-14 mb-36 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
 				{/* Heading */}
 				<div className="w-7xl bg-[#43A7CB20] px-4 border-b-2 border-[#BED1D920] rounded-t-2xl flex items-center text-[#BED1D9] text-[20px] font-bold">
 					<div className="w-[110px] py-3 flex justify-center">S No.</div>
