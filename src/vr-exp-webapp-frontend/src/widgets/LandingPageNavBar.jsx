@@ -7,12 +7,17 @@ export default function LandingPageNavBar() {
 		const result = await window.ic.plug.isConnected();
 		if (!result) {
 			try {
-				await window.ic.plug.requestConnect();
+				await window.ic.plug.requestConnect({
+					whitelist: "uxrrr-q7777-77774-qaaaq-cai",
+					host: "http://127.0.0.1:4943"
+				});
 			} catch (e) {
-				console.log(e);
+				console.log("Error: " + e);
 				return
 			}
 		}
+		const principal_id = await window.ic.plug.getPrincipal();
+		localStorage.setItem("principal_id", principal_id.toText());
 		navigator("/home");
 	}
 

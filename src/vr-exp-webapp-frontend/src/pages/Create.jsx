@@ -1,5 +1,5 @@
 import { vr_exp_webapp_backend } from "../../../declarations/vr-exp-webapp-backend";
-import "./create.css";
+import "../create.css";
 
 const formatDateTime = (date) => {
     const day = String(date.getDate()).padStart(2, '0');
