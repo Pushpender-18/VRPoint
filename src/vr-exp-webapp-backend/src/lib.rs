@@ -31,9 +31,11 @@ struct Txn {
 
 thread_local! {
     static COUNTER: std::cell::RefCell<u64> = RefCell::new(0);
+    static TXN_COUNTER: std::cell::RefCell<u64> = RefCell::new(0);
     static NFT_LIST: RefCell<Vec<NFT>> = RefCell::new(Vec::new());
     static BUY_LIST: RefCell<Vec<NFT>> = RefCell::new(Vec::new());
     static TXN_LIST: RefCell<Vec<TxnRecord>> = RefCell::new(Vec::new());
+
 }
 
 // API calls
@@ -175,11 +177,12 @@ fn get_nft_data(nft_token_id: u64) -> Option<NFT> {
 
 // Buys an NFT
 #[update]
-fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
+fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {   
     let mut index = 0;
-	let mut prev_price:u32 = 0;
+	let mut current_price:u32 = 0;
+    let mut prev_owner:String = "".to_string();
 
-    BUY_LIST.with(|nft_list| {
+    BUY_LIST.with(|nft_list| {  // Find the nft in buy list
         let buy_list = nft_list.borrow().clone();
 
         let mut i = 0;
@@ -189,8 +192,8 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
             }
 
             if buy_list[i].id == nft_token_id {
-                index = i;
-				prev_price = buy_list[i].price;
+                index = i;  // Capture Index
+				current_price = buy_list[i].price; // Capture Price
                 break;
             }
 
@@ -199,10 +202,10 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
     });
 
     BUY_LIST.with(|buy_list| {
-        buy_list.borrow_mut().remove(index);
+        buy_list.borrow_mut().remove(index);    // Remove from BUY List
     });
 
-	NFT_LIST.with(|nfts| {
+	NFT_LIST.with(|nfts| {  // Update NFT List
         let mut nft_list = nfts.borrow_mut();
 
         let mut i = 0;
@@ -211,15 +214,29 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
                 break;
             }
 
-            if nft_list[i].id == nft_token_id {
-                nft_list[i].owner = principal_id;
-				nft_list[i].price = prev_price;
+            if nft_list[i].id == nft_token_id { // Find the nft in NFT List
+                prev_owner = nft_list[i].owner.clone(); // Recored Previous Owner
+                nft_list[i].owner = principal_id.clone();       // Update owner
+				nft_list[i].price = current_price.clone();      // Update Price
                 break;
             }
 
             i += 1;
         }
-    });	
+    });
+
+    let mut txn_id: u64 = 0;
+
+    TXN_COUNTER.with(|counter| {    // Get new id for the transaction
+        let mut id_ptr = counter.borrow_mut();
+        *id_ptr += 1;
+        txn_id = *id_ptr;
+    });
+
+    TXN_LIST.with(|txn| {
+        let mut txn_record = txn.borrow_mut();
+        txn_record.push(TxnRecord { txn_id: txn_id, nft_token_id: nft_token_id.clone(), seller: prev_owner.clone(), buyer: principal_id.clone() });
+    });
 
     true
 }
