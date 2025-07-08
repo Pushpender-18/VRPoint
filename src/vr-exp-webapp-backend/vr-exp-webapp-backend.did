@@ -10,7 +10,7 @@ type NFT = record {
 type Txn = record { nft_token_id : nat64; txn_type : text; txn_id : nat64 };
 service : {
   buy_nft : (text, nat64) -> (bool);
-  create_nft : (text, text, text, text, text) -> (bool);
+  create_nft : (text, text, text, text, text) -> (u64);
   get_buy_marketplace : () -> (vec NFT) query;
   get_my_nfts : (text) -> (vec NFT) query;
   get_nft_data : (nat64) -> (opt NFT) query;

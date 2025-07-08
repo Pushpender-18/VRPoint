@@ -1,7 +1,7 @@
-use candid::CandidType;
+use candid::{CandidType};
 use ic_cdk_macros::{query, update};
 use serde::{Deserialize, Serialize};
-use std::cell::RefCell;
+use std::{cell::RefCell, collections::HashMap};
 
 #[derive(Clone, Debug, CandidType, Deserialize, Serialize)]
 struct NFT {
@@ -35,7 +35,8 @@ thread_local! {
     static NFT_LIST: RefCell<Vec<NFT>> = RefCell::new(Vec::new());
     static BUY_LIST: RefCell<Vec<NFT>> = RefCell::new(Vec::new());
     static TXN_LIST: RefCell<Vec<TxnRecord>> = RefCell::new(Vec::new());
-
+    static MANIFEST_LIST: RefCell<HashMap<String, Vec<u8>>> = RefCell::new(HashMap::new());
+    static MODEL_LIST: RefCell<HashMap<String, Vec<u8>>> = RefCell::new(HashMap::new());
 }
 
 // API calls
@@ -311,7 +312,7 @@ fn create_nft(
     time_stamp: String,
     description: String,
     bucket_link: String,
-) -> bool {
+) -> u64 {
     let mut id: u64 = 0;
 
     COUNTER.with(|counter| {
@@ -332,7 +333,7 @@ fn create_nft(
         });
     });
 
-    true
+    id
 }
 
 ic_cdk::export_candid!();
