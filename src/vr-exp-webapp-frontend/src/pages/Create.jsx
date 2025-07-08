@@ -41,7 +41,8 @@ export default function CreatePage() {
 		} else {
 			const loading = document.getElementById("loading");
 			loading.classList.toggle("hidden");
-
+			loading.classList.toggle("flex");
+			
 			const response = await axios.post('http://127.0.0.1:5001/api/v0/add',
 				fileData,
 				{
@@ -86,7 +87,7 @@ export default function CreatePage() {
 
 	return (
 		<div className="w-screen h-screen bg-black overflow-hidden relative" id="editor-div">
-			<div id="loading" className="w-screen h-screen absolute bg-white/20 backdrop-blur-lg z-10 flex justify-center items-center text-white text-5xl hidden">Creating NFT</div>
+			<div id="loading" className="w-screen h-screen absolute bg-white/20 backdrop-blur-lg z-10 justify-center items-center text-white text-5xl hidden">Creating NFT</div>
 			<div className="h-12 flex items-center justify-center relative">
 				<form onSubmit={fileHandler} className="flex gap-6 ml-9">
 					<label id="model-label" htmlFor="file" className="h-10 border-2 px-4 border-white rounded-lg flex justify-center items-center hover:bg-white/40 active:bg-white/50 transition-all duration-200">Select Model</label>
