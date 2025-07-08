@@ -8,7 +8,7 @@ export default function LandingPageNavBar() {
 		if (!result) {
 			try {
 				await window.ic.plug.requestConnect({
-					whitelist: "uxrrr-q7777-77774-qaaaq-cai",
+					whitelist: ["uxrrr-q7777-77774-qaaaq-cai"],
 					host: "http://127.0.0.1:4943"
 				});
 			} catch (e) {
