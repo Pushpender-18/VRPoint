@@ -49,7 +49,7 @@ export default function CreatePage() {
 				}
 			);
 			const cid = response.data.Hash;
-			const manifest = {cid : [1, 2, 3]};
+			const manifest = [{ hash: cid, pos: [1, 2, 3] }];
 			const principal_id = await getPrincipalID();
 			const title = formData.get("title");
 			const now = new Date();
