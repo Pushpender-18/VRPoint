@@ -6,7 +6,7 @@ import BuyPage from './pages/Buy';
 import SellPage from './pages/Sell';
 import TransactionPage from './pages/Transaction';
 import CreatePage from './pages/Create';
-import Editor from './Editor';
+import Editor from './widgets/Editor';
 
 function App() {
 

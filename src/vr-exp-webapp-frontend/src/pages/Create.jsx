@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { vr_exp_webapp_backend } from "../../../declarations/vr-exp-webapp-backend";
-import Editor from "../Editor";
+import Editor from "../widgets/Editor";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const formatDateTime = (date) => {
 	const day = String(date.getDate()).padStart(2, '0');
@@ -16,11 +17,18 @@ const formatDateTime = (date) => {
 };
 
 export default function CreatePage() {
+	async function getPrincipalID() {	// Returns Principal ID from cache
+		const principal_id = localStorage.getItem("principal_id");
+		if (principal_id == null) {
+			navigator("/");
+		}
+		return principal_id;
+	}
 	function fileHandler(event) {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const file = formData.get("file");
-		setFileData(file);
+		setFileData(formData);
 		const url = URL.createObjectURL(file);
 		setModelURL(url);
 	}
@@ -33,6 +41,26 @@ export default function CreatePage() {
 		} else {
 			const loading = document.getElementById("loading");
 			loading.classList.toggle("hidden");
+
+			const response = await axios.post('http://127.0.0.1:5001/api/v0/add',
+				fileData,
+				{
+					headers: { 'Content-Type': 'multipart/form-data' }
+				}
+			);
+			const cid = response.data.Hash;
+			const manifest = {cid : [1, 2, 3]};
+			const principal_id = await getPrincipalID();
+			const title = formData.get("title");
+			const now = new Date();
+			const time_stamp = formatDateTime(now);
+			const result = await vr_exp_webapp_backend.create_nft(principal_id, title, time_stamp, "", JSON.stringify(manifest));
+			if (result) {
+				alert("NFT Created");
+			} else {
+				alert("Error Occured");
+			}
+			navigator("/home/");
 		}
 	}
 
