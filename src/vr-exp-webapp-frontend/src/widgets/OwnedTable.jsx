@@ -3,6 +3,7 @@ import PlayBtn from "../widgets/PlayBtn";
 import SellBtn from "../widgets/SellBtn";
 import { vr_exp_webapp_backend } from "../../../declarations/vr-exp-webapp-backend";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function OwnedTable() {
 	async function getPrincipalID() {	// Returns Principal ID from cache
@@ -19,8 +20,28 @@ export default function OwnedTable() {
 		setNftData(data);
 	}
 
-	function sellBtnHandler() {	
+	function sellBtnHandler() {	//Sell Button
 		naviagtor("/home/sell");
+	}
+
+	async function playVRWorld(index) {
+		const manifestString = nftData[index].manifest;
+		const manifest = JSON.parse(manifestString);
+		console.log(manifest[0].hash);
+
+		try {
+			const url = "http://127.0.0.1:8080/ipfs/" + manifest[0].hash;
+			console.log(url);
+			const response = await axios.get(url, {
+				responseType: 'blob',
+			});
+			// const file = new Blob([response.data], { type: response.headers['content-type'] });
+			const modelUrl = URL.createObjectURL(response.data);
+			sessionStorage.setItem("player-model-url", modelUrl);
+		} catch (e) {
+			console.log(e);
+		}
+		naviagtor("/player")
 	}
 
 	const [nftData, setNftData] = useState([]);
@@ -45,7 +66,7 @@ export default function OwnedTable() {
 				<div className="w-[470px] py-3 flex justify-center">{data.item_name}</div>
 				<div className="w-[160px] py-3 flex justify-center">{data.price.toString() + " ICP"}</div>
 				<div className="w-[260px] py-3 flex justify-center">{data.time_stamp.split(" ")[0]}</div>
-				<div className="w-[130px] py-3 flex justify-center"><PlayBtn btnHandler={() => { }} /></div>
+				<div className="w-[130px] py-3 flex justify-center"><PlayBtn btnHandler={() => { playVRWorld(index) }} /></div>
 				<div className="w-[130px] py-3 flex justify-center"><SellBtn btnHandler={sellBtnHandler} /></div>
 			</div>
 		))

@@ -6,7 +6,7 @@ import BuyPage from './pages/Buy';
 import SellPage from './pages/Sell';
 import TransactionPage from './pages/Transaction';
 import CreatePage from './pages/Create';
-import Editor from './pages/Editor';
+import Player from './pages/Player';
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
           <Route path='transaction' element={<TransactionPage />}></Route>
         </Route>
         <Route path='create' element={<CreatePage />}></Route>
-        <Route path='editor' element={<Editor />}></Route>
+        <Route path='player' element={<Player />}></Route>
       </Routes>
     </BrowserRouter>
   );
