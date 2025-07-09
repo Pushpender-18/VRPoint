@@ -7,23 +7,22 @@ import BuyBtn from "./BuyBtn";
 export default function BuyTable() {
 	async function getPrincipalID() {	// Returns Principal ID from cache
 		const principal_id = localStorage.getItem("principal_id");
-		if (principal_id == null) {
-			naviagtor("/");
+		if (principal_id == null) {	// If Principal ID is not cached (Not logged In)
+			naviagtor("/");			// Re-direct to landing page
 		}
 		return principal_id;
 	}
 
 	async function getData() {	// Fetches Buy Marketplace data from the backend canister
-		const raw_data = await vr_exp_webapp_backend.get_buy_marketplace();
+		const raw_data = await vr_exp_webapp_backend.get_buy_marketplace();	// Fetch raw data
 		const principal_id = await getPrincipalID();
 		const data = [];
-		raw_data.forEach((d) => {
-			if (d.owner == principal_id) {
-			} else {
-				console.log(principal_id);
+		raw_data.forEach((d) => {	// Filter buy order
+			if (d.owner != principal_id) {	// Only add other owners nft listings
 				data.push(d);
-			}
+			} 
 		})
+		// Update NFT Data
 		setNftData(data);
 	}
 
@@ -31,18 +30,18 @@ export default function BuyTable() {
 		document.getElementById("desc-" + index.toString()).classList.toggle("hidden");
 	}
 
-	async function  buyBtnHandler(nftTokenId) {
-		const principal_id = await getPrincipalID();
-		const result = await vr_exp_webapp_backend.buy_nft(principal_id, parseInt(nftTokenId));
+	async function  buyBtnHandler(nftTokenId) {	// Buy Btn Handler
+		const principal_id = await getPrincipalID();	
+		const result = await vr_exp_webapp_backend.buy_nft(principal_id, parseInt(nftTokenId));	// Call backend api
 
-		if (result) {
+		if (result) {	// User feedback
 			alert("NFT Bought");
 		} else {
 			alert("Something went wrong");
 		}
 
+		// Reload to fetch updated data
 		window.location.reload();
-		
 	}
 
 	const [nftData, setNftData] = useState([]);
@@ -56,9 +55,9 @@ export default function BuyTable() {
 	}
 
 	let content = null;
-	if (nftData.length == 0) {
+	if (nftData.length == 0) {	// Render empty table if NFT Data is not present
 		content = <div className="h-96 flex justify-center items-center text-[#BED1D950] text-2xl tracking-wider">Nothing to show</div>;
-	} else {
+	} else {	// Render NFT Data
 		content = nftData.map((data, index) => (
 			<div className="flex flex-col bg-white/3 border-b-2 border-[#BED1D920]">
 				<div className="w-7xl px-4 flex items-center text-[#BED1D9] text-[18px]">
