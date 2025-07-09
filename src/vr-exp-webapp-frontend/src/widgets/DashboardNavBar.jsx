@@ -1,4 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 export default function DashboardNavBar() {
+	function logoutHandler() {
+		localStorage.removeItem("principal_id")
+		navigator("/");
+	}
+
+	function profileHandler() {
+		document.getElementById("logout").classList.toggle("opacity-100");
+	}
+
+	const navigator = useNavigate();
+
 	return (
 		<nav className="w-screen h-18 bg-[#ffffff03] flex items-center justify-center border-b-1 border-[#ffffff10]">
 			<div className="w-7xl  flex justify-between items-center">
@@ -24,8 +37,9 @@ export default function DashboardNavBar() {
 						<img src="/icons/bell.png" alt="notification" />
 					</div>
 					{/* Account Icon */}
-					<div className="w-14 h-14 bg-[#43A7CB] rounded-full">
-						<img src="/icons/user.png" alt="profile-pic" />
+					<div className="w-14 h-14 z-20 bg-[#43A7CB] rounded-full relative">
+						<div id="logout" className="absolute bg-[#23759790] top-13 left-8 z-10 px-3 py-2 opacity-0 hover:bg-[#23759780] active:bg-[#23759770] transition-opacity duration-200" onClick={logoutHandler}>Logout</div>
+						<img src="/icons/user.png" alt="profile-pic" onClick={profileHandler} />
 					</div>
 				</div>
 			</div>
