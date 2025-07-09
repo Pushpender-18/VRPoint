@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { vr_exp_webapp_backend } from "../../../declarations/vr-exp-webapp-backend";
 
@@ -9,7 +9,6 @@ export default function SellForm() {
 		if (principal_id == null) {
 			navigator("/");
 		}
-		console.log(principal_id);
 		return principal_id;
 	}
 
@@ -18,6 +17,7 @@ export default function SellForm() {
 		const data = await vr_exp_webapp_backend.get_my_nfts(principal_id);
 		setNftData(data);
 	}
+
 
 	function updateForm(event) {
 		const nftPriceInput = document.getElementById("nft-price");
@@ -48,14 +48,14 @@ export default function SellForm() {
 
 	async function submitForm(event) {	// Submit Form
 		event.preventDefault();
-		const formData = new FormData(event.target);	
+		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData.entries());
 
 		clearForm();	// Clear FOrm
 		const principal_id = await getPrincipalID();	// Get Principal ID
 		// Place sell order through canister api
 		const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), parseInt(data.nft_price));
-		
+
 		// Feedback to the user
 		if (result) {
 			alert("Sell Order Placed");
@@ -64,16 +64,34 @@ export default function SellForm() {
 		}
 
 		window.location.reload();
-
 	}
 
 	const navigator = useNavigate();
 	const [nftData, setNftData] = useState([]);
 	const [tries, setTries] = useState(0);
 
+	useEffect(() => {
+		if (nftData.length != 0) {
+			const sellID = sessionStorage.getItem("sell-nft-token");
+			const nftTitle = document.getElementById("nft-title");
+			const nftPriceInput = document.getElementById("nft-price");
+			const nftDescInput = document.getElementById("nft-description");
+
+			console.log(sellID);
+				nftData.forEach(nft => {
+				if (nft.id == sellID) {
+					nftTitle.value = nft.id;
+					nftPriceInput.value = nft.price;
+					nftDescInput.innerHTML = nft.description;
+				}
+			})
+
+			sessionStorage.removeItem("sell-nft-token");
+		}
+	});
+
 	if ((nftData.length == 0) && (tries < 5)) {	// Fetch NFT data from canister
 		getData();
-		console.log(tries);
 		setTries(tries + 1);
 	}
 

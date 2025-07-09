@@ -20,18 +20,17 @@ export default function OwnedTable() {
 		setNftData(data);
 	}
 
-	function sellBtnHandler() {	//Sell Button
+	function sellBtnHandler(nftTokenId) {	//Sell Button
+		sessionStorage.setItem("sell-nft-token", nftTokenId);
 		naviagtor("/home/sell");
 	}
 
 	async function playVRWorld(index) {
 		const manifestString = nftData[index].manifest;
 		const manifest = JSON.parse(manifestString);
-		console.log(manifest[0].hash);
 
 		try {
 			const url = "http://127.0.0.1:8080/ipfs/" + manifest[0].hash;
-			console.log(url);
 			const response = await axios.get(url, {
 				responseType: 'blob',
 			});
@@ -51,7 +50,6 @@ export default function OwnedTable() {
 	// Fetching Data
 	if ((nftData.length == 0) && (tries < 5)) {
 		getData();
-		console.log(tries);
 		setTries(tries + 1);
 	}
 
@@ -67,7 +65,7 @@ export default function OwnedTable() {
 				<div className="w-[160px] py-3 flex justify-center">{data.price.toString() + " ICP"}</div>
 				<div className="w-[260px] py-3 flex justify-center">{data.time_stamp.split(" ")[0]}</div>
 				<div className="w-[130px] py-3 flex justify-center"><PlayBtn btnHandler={() => { playVRWorld(index) }} /></div>
-				<div className="w-[130px] py-3 flex justify-center"><SellBtn btnHandler={sellBtnHandler} /></div>
+				<div className="w-[130px] py-3 flex justify-center"><SellBtn btnHandler={() => { sellBtnHandler(data.id) }} /></div>
 			</div>
 		))
 	}

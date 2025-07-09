@@ -42,7 +42,6 @@ export default function ListedNFT() {
 	// Fetching Data
 	if ((nftData.length == 0) && (tries < 5)) {
 		getData();
-		console.log(tries);
 		setTries(tries + 1);
 	}
 
