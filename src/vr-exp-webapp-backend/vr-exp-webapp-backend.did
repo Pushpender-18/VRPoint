@@ -17,5 +17,5 @@ service : {
   get_sell_orders : (text) -> (vec NFT) query;
   get_transactions : (text) -> (vec Txn) query;
   remove_sell_order : (text, nat64) -> (bool);
-  sell_nft : (text, nat64, nat32) -> (bool);
+  sell_nft : (text, nat64, text, nat32) -> (bool);
 }

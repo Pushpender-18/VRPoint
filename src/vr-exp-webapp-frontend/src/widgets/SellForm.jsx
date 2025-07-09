@@ -43,7 +43,7 @@ export default function SellForm() {
 
 		nftTitleInput.value = "default-option";
 		nftPriceInput.value = null;
-		nftDescInput.innerHTML = null;
+		nftDescInput.value = "";
 	}
 
 	async function submitForm(event) {	// Submit Form
@@ -51,19 +51,19 @@ export default function SellForm() {
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData.entries());
 
-		clearForm();	// Clear FOrm
-		const principal_id = await getPrincipalID();	// Get Principal ID
-		// Place sell order through canister api
-		const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), parseInt(data.nft_price));
+		clearForm();	// Clear Form
+		// const principal_id = await getPrincipalID();	// Get Principal ID
+		// // Place sell order through canister api
+		// const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), data.nft_description,parseInt(data.nft_price));
 
-		// Feedback to the user
-		if (result) {
-			alert("Sell Order Placed");
-		} else {
-			alert("Error Occured");
-		}
+		// // Feedback to the user
+		// if (result) {
+		// 	alert("Sell Order Placed");
+		// } else {
+		// 	alert("Error Occured");
+		// }
 
-		window.location.reload();
+		// window.location.reload();
 	}
 
 	const navigator = useNavigate();

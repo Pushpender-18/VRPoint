@@ -180,6 +180,7 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
     let mut index = 0;
 	let mut current_price:u32 = 0;
     let mut prev_owner:String = "".to_string();
+    let mut current_desc:String = "".to_string();
 
     BUY_LIST.with(|nft_list| {  // Find the nft in buy list
         let buy_list = nft_list.borrow().clone();
@@ -193,6 +194,7 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
             if buy_list[i].id == nft_token_id {
                 index = i;  // Capture Index
 				current_price = buy_list[i].price; // Capture Price
+                current_desc = buy_list[i].description.clone(); // Capture Description
                 break;
             }
 
@@ -217,6 +219,7 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
                 prev_owner = nft_list[i].owner.clone(); // Recored Previous Owner
                 nft_list[i].owner = principal_id.clone();       // Update owner
 				nft_list[i].price = current_price.clone();      // Update Price
+                nft_list[i].description = current_desc;         // Update Description
                 break;
             }
 
@@ -242,7 +245,7 @@ fn buy_nft(principal_id: String, nft_token_id: u64) -> bool {
 
 // Sell an NFT
 #[update]
-fn sell_nft(principal_id: String, nft_token_id: u64, price: u32) -> bool {
+fn sell_nft(principal_id: String, nft_token_id: u64, description: String,price: u32) -> bool {
     NFT_LIST.with(|nfts| {
         let nft_list = nfts.borrow().clone();
 
@@ -254,8 +257,10 @@ fn sell_nft(principal_id: String, nft_token_id: u64, price: u32) -> bool {
 
             if nft_list[i].id == nft_token_id {
                 if nft_list[i].owner == principal_id {
+
                     let mut _nft = nft_list[i].clone();
                     _nft.price = price;
+                    _nft.description = description.clone();
 
                     BUY_LIST.with(|buy_list| {
                         buy_list.borrow_mut().push(_nft);
