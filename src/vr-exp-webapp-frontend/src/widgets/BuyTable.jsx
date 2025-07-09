@@ -14,7 +14,16 @@ export default function BuyTable() {
 	}
 
 	async function getData() {	// Fetches Buy Marketplace data from the backend canister
-		const data = await vr_exp_webapp_backend.get_buy_marketplace();
+		const raw_data = await vr_exp_webapp_backend.get_buy_marketplace();
+		const principal_id = await getPrincipalID();
+		const data = [];
+		raw_data.forEach((d) => {
+			if (d.owner == principal_id) {
+			} else {
+				console.log(principal_id);
+				data.push(d);
+			}
+		})
 		setNftData(data);
 	}
 
@@ -43,7 +52,6 @@ export default function BuyTable() {
 	// Fetching Data
 	if ((nftData.length == 0) && (tries < 5)) {
 		getData();
-		console.log(tries);
 		setTries(tries + 1);
 	}
 
