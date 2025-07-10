@@ -129,7 +129,7 @@ export default function SellForm() {
 			<div className="mt-12">
 				<form className="flex flex-col gap-10 items-end" onSubmit={submitForm}>
 					<div className="w-7xl flex justify-between">
-						<select name="nft_token_id" id="nft-title" onChange={updateForm} className="w-[820px] h-16 p-3 block bg-white/10 placeholder-pink-500 border-2 border-[#BED1D970] focus:border-[#BED1D9] rounded-xl text-2xl text-[#BED1D9]">
+						<select name="nft_token_id" id="nft-title" onChange={updateForm} className="w-[820px] h-16 p-3 block bg-white/10 border-2 border-[#BED1D970] focus:border-[#BED1D9] rounded-xl text-2xl text-[#BED1D9] ">
 							<option value="default-option">Select Your NFT</option>
 							{nftData.map(nft => (
 								<option key={nft.id} value={nft.id}>{nft.item_name}</option>
