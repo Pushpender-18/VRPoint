@@ -22,7 +22,7 @@ export default function TxnTable() {
 
 	async function getData(txn_record) {	// Fetches NFT data from the backend canister
 		let _nftData = [];
-		for (let i=0; i<txn_record.length; i++) {
+		for (let i = 0; i < txn_record.length; i++) {
 			const nft = await vr_exp_webapp_backend.get_nft_data(txn_record[i].nft_token_id);
 			_nftData.push(nft[0]);
 		}
@@ -47,16 +47,19 @@ export default function TxnTable() {
 		content = <div className="h-96 flex justify-center items-center text-[#BED1D950] text-2xl tracking-wider">Nothing to show</div>;
 	} else {
 		console.log(nftData);
-		content = nftData.map((data, index) => (
-			<div className="w-7xl px-4 bg-white/3 border-b-2 border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]">
-				<div className="w-[110px] py-3 flex justify-center">{(index + 1).toString() + "."}</div>
-				<div className="w-[470px] py-3 flex justify-center">{data.item_name}</div>
-				<div className="w-[160px] py-3 flex justify-center">{data.price.toString() + " ICP"}</div>
-				<div className="w-[260px] py-3 flex justify-center">{data.time_stamp.split(" ")[0]}</div>
-				<div className="w-[130px] py-3 flex justify-center">{txnRecord[index].txn_type}</div>
-				<div className="w-[130px] py-3 flex justify-center"><CancelBtn btnHandler={() => { }} /></div>
-			</div>
-		))
+		content = nftData.map((data, index) => {
+			const classString = `w-7xl px-4 bg-white/3 ${(nftData.length-1) == index ? "rounded-b-2xl" : "border-b-2"} border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]`;
+			return (
+				<div className={classString}>
+					<div className="w-[110px] py-3 flex justify-center">{(index + 1).toString() + "."}</div>
+					<div className="w-[470px] py-3 flex justify-center">{data.item_name}</div>
+					<div className="w-[160px] py-3 flex justify-center">{data.price.toString() + " ICP"}</div>
+					<div className="w-[260px] py-3 flex justify-center">{data.time_stamp.split(" ")[0]}</div>
+					<div className="w-[130px] py-3 flex justify-center">{txnRecord[index].txn_type}</div>
+					<div className="w-[130px] py-3 flex justify-center"><CancelBtn btnHandler={() => { }} /></div>
+				</div>
+			)
+		})
 	}
 
 
