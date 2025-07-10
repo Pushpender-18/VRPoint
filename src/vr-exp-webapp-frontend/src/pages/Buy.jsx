@@ -11,7 +11,6 @@ export default function BuyPage() {
 	return (
 		<div className="flex flex-col items-center relative">
 			<BuyTable />
-			<Footer />
 		</div>
 	);
 }

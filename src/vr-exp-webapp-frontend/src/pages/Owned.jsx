@@ -17,7 +17,6 @@ export default function OwnedPage() {
 				<OwnedTable></OwnedTable>
 			</section>
 
-			<Footer />
 		</div>
 	);
 

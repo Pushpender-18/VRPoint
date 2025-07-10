@@ -8,7 +8,6 @@ export default function SellPage() {
 		<div className="flex flex-col items-center">
 			<SellForm />
 			<ListedNFT />
-			<Footer />
 		</div>
 	);
 }

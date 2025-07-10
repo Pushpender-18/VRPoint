@@ -71,13 +71,17 @@ export default function SellForm() {
 			processing = true;
 			const formData = new FormData(event.target);
 			const data = Object.fromEntries(formData.entries());
+			const sellBtn = document.getElementById("sell-btn")
 
 			clearForm();	// Clear Form
+			sellBtn.innerHTML = "Processing Request";
+			sellBtn.onSubmit = null;
 			const principal_id = await getPrincipalID();	// Get Principal ID
 			// Place sell order through canister api
 			const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), data.nft_description, parseInt(data.nft_price));
 
 			processing = false;
+			sellBtn.innerHTML = "List NFT For Sale";
 			// Feedback to the user
 			if (result) {
 				const popup = document.getElementById("sell-card");
@@ -138,7 +142,7 @@ export default function SellForm() {
 						<input type="text" name="nft_price" id="nft-price" className="w-104 px-3 bg-white/10 border-2 border-[#BED1D970] focus:border-[#BED1D9] rounded-xl text-2xl text-[#BED1D9]" placeholder="Price" />
 					</div>
 					<textarea name="nft_description" id="nft-description" placeholder="Description" className="w-7xl h-80 p-3 bg-white/10 border-2 border-[#BED1D970] focus:border-[#BED1D9] rounded-xl text-2xl text-[#BED1D9]" ></textarea>
-					<button type="submit" className="bg-[#43A7CB] text-[#BED1D9] text-2xl px-8 py-4 rounded-2xl hover:bg-[#43A7CB90] active:bg-[#43A7CB80] transition-all">List NFT For Sale</button>
+					<button id="sell-btn" type="submit" className="bg-[#43A7CB] text-[#BED1D9] text-2xl px-8 py-4 rounded-2xl hover:bg-[#43A7CB90] active:bg-[#43A7CB80] transition-all duration-200">List NFT For Sale</button>
 				</form>
 			</div>
 			<div id="sell-card" className="bg-[#237597] text-[#BED1D9] flex flex-col translate-y-136 translate-x-96 right-0 rounded-tl-2xl rounded-bl-2xl z-40 text-2xl font-bold absolute">

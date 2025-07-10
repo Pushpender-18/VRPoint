@@ -42,6 +42,8 @@ export default function BuyTable() {
 			if (result) {	// User feedback
 				const buyCard = document.getElementById("buy-card");
 				const buyLine = document.getElementById("buy-line");
+				buyCard.classList.toggle("hidden");
+				buyCard.classList.toggle("flex");
 				buyCard.classList.toggle("popup-card");
 				buyLine.classList.toggle("popup-line");
 			} else {
@@ -87,7 +89,7 @@ export default function BuyTable() {
 							<h3 className="">{data.description}</h3>
 						</div>
 					</div>
-					<div id="buy-card" className="bg-[#237597] text-[#BED1D9] flex flex-col right-0 translate-x-96 rounded-tl-2xl rounded-bl-2xl z-40 text-2xl font-bold absolute">
+					<div id="buy-card" className="bg-[#237597] text-[#BED1D9] flex-col right-0 translate-x-128 rounded-tl-2xl rounded-bl-2xl z-40 text-2xl font-bold absolute hidden">
 						<div className="py-8 px-12 pr-24">
 							Virutal NFT Bought
 						</div>

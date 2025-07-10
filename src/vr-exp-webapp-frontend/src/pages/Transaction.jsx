@@ -6,8 +6,6 @@ export default function TransactionPage() {
 	return (
 		<div className="flex flex-col items-center">
 			<TxnTable />
-
-			<Footer />
 		</div>
 	);
 }

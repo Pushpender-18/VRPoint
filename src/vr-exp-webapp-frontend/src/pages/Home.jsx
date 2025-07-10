@@ -1,6 +1,7 @@
 import { Outlet, useLocation, Link } from "react-router-dom";
 import DashboardNavBar from "../widgets/DashboardNavBar";
 import "../index.css";
+import Footer from "../widgets/Footer";
 
 export default function Home() {
 	const url = useLocation();
@@ -51,6 +52,8 @@ export default function Home() {
 					<Outlet />
 				</div>
 			</div>
+
+			<Footer />
 		</div>
 	);
 }

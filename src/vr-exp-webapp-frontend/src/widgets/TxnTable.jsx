@@ -49,7 +49,7 @@ export default function TxnTable() {
 	} else {
 		console.log(nftData);
 		content = nftData.map((data, index) => {
-			const classString = `w-7xl px-4 bg-white/3 ${(nftData.length-1) == index ? "rounded-b-2xl" : "border-b-2"} border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]`;
+			const classString = `w-7xl px-4 py-2.5 bg-white/3 ${(nftData.length-1) == index ? "rounded-b-2xl" : "border-b-2"} border-[#BED1D920] flex items-center text-[#BED1D9] text-[18px]`;
 			return (
 				<div className={classString}>
 					<div className="w-[110px] py-3 flex justify-center">{(index + 1).toString() + "."}</div>
