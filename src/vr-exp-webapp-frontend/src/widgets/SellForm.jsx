@@ -14,8 +14,27 @@ export default function SellForm() {
 
 	async function getData() {	// Fetches NFT data from the backend canister
 		const principal_id = await getPrincipalID();
-		const data = await vr_exp_webapp_backend.get_my_nfts(principal_id);
-		setNftData(data);
+		const data = await vr_exp_webapp_backend.get_my_nfts(principal_id);	// NFT Data
+		const buyData = await vr_exp_webapp_backend.get_buy_marketplace(principal_id);	// Buy Marketplace
+		const listed_nft = [];
+		const filteredData = [];
+		buyData.forEach((nft) => {
+			if (nft.owner == principal_id) {
+				listed_nft.push(nft);	// Get owners sell orders
+			}
+		})
+
+		data.forEach((nft) => {	// Filter listed sell orders
+			let flag = true;
+			for (let i in listed_nft) {
+				if (listed_nft[i].id == nft.id) {
+					flag = false;
+				}
+			}
+			if (flag) { filteredData.push(nft); }
+		})
+
+		setNftData(filteredData);
 	}
 
 
@@ -52,18 +71,18 @@ export default function SellForm() {
 		const data = Object.fromEntries(formData.entries());
 
 		clearForm();	// Clear Form
-		// const principal_id = await getPrincipalID();	// Get Principal ID
-		// // Place sell order through canister api
-		// const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), data.nft_description,parseInt(data.nft_price));
+		const principal_id = await getPrincipalID();	// Get Principal ID
+		// Place sell order through canister api
+		const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), data.nft_description, parseInt(data.nft_price));
 
-		// // Feedback to the user
-		// if (result) {
-		// 	alert("Sell Order Placed");
-		// } else {
-		// 	alert("Error Occured");
-		// }
+		// Feedback to the user
+		if (result) {
+			alert("Sell Order Placed");
+		} else {
+			alert("Error Occured");
+		}
 
-		// window.location.reload();
+		window.location.reload();
 	}
 
 	const navigator = useNavigate();
@@ -71,14 +90,18 @@ export default function SellForm() {
 	const [tries, setTries] = useState(0);
 
 	useEffect(() => {
-		if (nftData.length != 0) {
+		if ((nftData.length == 0) && (tries < 5)) {	// Fetch NFT data from canister
+			getData();
+			setTries(tries + 1);
+		}
+
+		if (nftData.length != 0) {	// Fetch data for quick sell
 			const sellID = sessionStorage.getItem("sell-nft-token");
 			const nftTitle = document.getElementById("nft-title");
 			const nftPriceInput = document.getElementById("nft-price");
 			const nftDescInput = document.getElementById("nft-description");
 
-			console.log(sellID);
-				nftData.forEach(nft => {
+			nftData.forEach(nft => {	// Fetch data from nft
 				if (nft.id == sellID) {
 					nftTitle.value = nft.id;
 					nftPriceInput.value = nft.price;
@@ -89,11 +112,6 @@ export default function SellForm() {
 			sessionStorage.removeItem("sell-nft-token");
 		}
 	});
-
-	if ((nftData.length == 0) && (tries < 5)) {	// Fetch NFT data from canister
-		getData();
-		setTries(tries + 1);
-	}
 
 	return (
 		<section id="sell" className="flex flex-col pt-12">
