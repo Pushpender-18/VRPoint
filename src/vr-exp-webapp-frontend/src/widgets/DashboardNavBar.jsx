@@ -32,14 +32,10 @@ export default function DashboardNavBar() {
 						<input type="text" name="search-box" id="search-box" className="bg-[#ffffff10] backdrop-blur-md border-2 border-[#BED1D9] w-3xs h-10 rounded-2xl placeholder:text-[#BED1D970] pl-6 text-[#BED1D9]" placeholder="Search" />
 					</form>
 
-					{/* Bell Icon */}
-					<div className="w-12 h-12 p-2 bg-[#43A7CB] rounded-full">
-						<img src="/icons/bell.png" alt="notification" />
-					</div>
 					{/* Account Icon */}
-					<div className="w-14 h-14 z-20 bg-[#43A7CB] rounded-full relative">
+					<div className="w-12 h-12 z-20 bg-[#06121B90] rounded-full relative">
 						<div id="logout" className="absolute bg-[#23759790] top-13 left-8 z-10 px-3 py-2 opacity-0 hover:bg-[#23759780] active:bg-[#23759770] transition-opacity duration-200" onClick={logoutHandler}>Logout</div>
-						<img src="/icons/user.png" alt="profile-pic" onClick={profileHandler} />
+						<img src="/icons/user.png" alt="profile-pic" className="opacity-80" onClick={profileHandler} />
 					</div>
 				</div>
 			</div>
