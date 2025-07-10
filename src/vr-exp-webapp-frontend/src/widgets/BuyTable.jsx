@@ -42,8 +42,6 @@ export default function BuyTable() {
 			if (result) {	// User feedback
 				const buyCard = document.getElementById("buy-card");
 				const buyLine = document.getElementById("buy-line");
-				buyCard.classList.toggle("hidden");
-				buyCard.classList.toggle("flex");
 				buyCard.classList.toggle("popup-card");
 				buyLine.classList.toggle("popup-line");
 			} else {
@@ -89,7 +87,7 @@ export default function BuyTable() {
 							<h3 className="">{data.description}</h3>
 						</div>
 					</div>
-					<div id="buy-card" className="bg-[#237597] text-[#BED1D9] flex-col right-0 translate-x-128 rounded-tl-2xl rounded-bl-2xl z-40 text-2xl font-bold absolute hidden">
+					<div id="buy-card" className="bg-[#237597] text-[#BED1D9] flex flex-col right-0 translate-x-96 rounded-tl-2xl rounded-bl-2xl z-40 text-2xl font-bold absolute">
 						<div className="py-8 px-12 pr-24">
 							Virutal NFT Bought
 						</div>
@@ -101,17 +99,20 @@ export default function BuyTable() {
 	}
 
 	return (
-		<div className="w-7xl mt-14 mb-36 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
-			{/* Heading */}
-			<div className="w-7xl bg-[#43A7CB20] px-4 border-b-2 border-[#BED1D920] rounded-t-2xl flex items-center text-[#BED1D9] text-[20px] font-bold">
-				<div className="w-[110px] py-3 flex justify-center">S No.</div>
-				<div className="w-[470px] py-3 flex justify-center">Item Name</div>
-				<div className="w-[160px] py-3 flex justify-center">Price</div>
-				<div className="w-[260px] py-3 flex justify-center">Date</div>
-				<div className="w-[130px] py-3 flex justify-center">Description</div>
-				<div className="w-[130px] py-3 flex justify-center">Buy</div>
-			</div>
+		<section id="buy-table" className="w-screen flex justify-center">
+			<div className="w-7xl mt-14 mb-36 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">
+				{/* Heading */}
+				<div className="w-7xl bg-[#43A7CB20] px-4 border-b-2 border-[#BED1D920] rounded-t-2xl flex items-center text-[#BED1D9] text-[20px] font-bold">
+					<div className="w-[110px] py-3 flex justify-center">S No.</div>
+					<div className="w-[470px] py-3 flex justify-center">Item Name</div>
+					<div className="w-[160px] py-3 flex justify-center">Price</div>
+					<div className="w-[260px] py-3 flex justify-center">Date</div>
+					<div className="w-[130px] py-3 flex justify-center">Description</div>
+					<div className="w-[130px] py-3 flex justify-center">Buy</div>
+				</div>
 
-			{content}
-		</div>);
+				{content}
+			</div>
+		</section>
+	);
 }

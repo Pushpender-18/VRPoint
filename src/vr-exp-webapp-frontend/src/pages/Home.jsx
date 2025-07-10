@@ -24,7 +24,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className="absolute">
+		<div className="absolute min-h-screen">
 			<div className="bg-gd-l"></div>
 			<div className="bg-gd-r"></div>
 			<div className="gd-l"></div>

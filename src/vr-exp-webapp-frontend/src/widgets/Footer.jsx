@@ -2,7 +2,7 @@ import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
 	return (
-		<footer className="w-screen bg-[#040B11] text-[#BED1D9] flex flex-col items-center relative bottom-0">
+		<footer className="w-screen bg-[#040B11] text-[#BED1D9] flex flex-col items-center mt-7">
 			{/* Links */}
 			<div className="w-6xl py-12 flex justify-around">
 				<a href="#" className="hover:text-[#BED1D9cc]">About</a>
