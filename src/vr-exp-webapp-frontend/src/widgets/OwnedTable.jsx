@@ -17,6 +17,7 @@ export default function OwnedTable() {
 	async function getData() {	// Fetches NFT data from the backend canister
 		const principal_id = await getPrincipalID();
 		const data = await vr_exp_webapp_backend.get_my_nfts(principal_id);
+		data.reverse(); // Reverse to get newest nft first
 		setNftData(data);
 	}
 

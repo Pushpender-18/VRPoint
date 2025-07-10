@@ -22,12 +22,13 @@ export default function TxnTable() {
 
 	async function getData(txn_record) {	// Fetches NFT data from the backend canister
 		let _nftData = [];
-		for (let i = 0; i < txn_record.length; i++) {
+		for (let i = 0; i < txn_record.length; i++) {	// Get each txn nft data
 			const nft = await vr_exp_webapp_backend.get_nft_data(txn_record[i].nft_token_id);
 			_nftData.push(nft[0]);
 		}
+		// Reverse to get newest txn first
+		_nftData.reverse();
 		setNftData(_nftData);
-		console.log(_nftData[0]);
 	}
 
 	const [txnRecord, setTxnRecord] = useState([]);
@@ -61,7 +62,6 @@ export default function TxnTable() {
 			)
 		})
 	}
-
 
 	return (
 		<section id="txn-list" className="w-7xl mt-14 mb-36 bg-[#ffffff03] border-2 border-[#BED1D920] rounded-2xl">

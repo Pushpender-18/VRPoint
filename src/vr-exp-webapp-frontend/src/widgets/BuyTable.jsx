@@ -22,6 +22,9 @@ export default function BuyTable() {
 				data.push(d);
 			}
 		})
+		// Reverse the data to get newest order first
+		data.reverse();
+
 		// Update NFT Data
 		setNftData(data);
 	}

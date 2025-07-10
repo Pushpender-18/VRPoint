@@ -16,6 +16,7 @@ export default function ListedNFT() {
 	async function getData() {	// Fetches NFT data from the backend canister
 		const principal_id = await getPrincipalID();
 		const data = await vr_exp_webapp_backend.get_sell_orders(principal_id);
+		data.reverse();	// Get latest orderst first
 		setNftData(data);
 	}
 
