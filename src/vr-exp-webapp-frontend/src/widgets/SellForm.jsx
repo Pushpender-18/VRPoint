@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { vr_exp_webapp_backend } from "../../../declarations/vr-exp-webapp-backend";
-
+import "../animation.css";
 
 export default function SellForm() {
 	async function getPrincipalID() {	// Returns Principal ID from cache
@@ -67,27 +67,37 @@ export default function SellForm() {
 
 	async function submitForm(event) {	// Submit Form
 		event.preventDefault();
-		const formData = new FormData(event.target);
-		const data = Object.fromEntries(formData.entries());
+		if (!processing) {
+			processing = true;
+			const formData = new FormData(event.target);
+			const data = Object.fromEntries(formData.entries());
 
-		clearForm();	// Clear Form
-		const principal_id = await getPrincipalID();	// Get Principal ID
-		// Place sell order through canister api
-		const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), data.nft_description, parseInt(data.nft_price));
+			clearForm();	// Clear Form
+			const principal_id = await getPrincipalID();	// Get Principal ID
+			// Place sell order through canister api
+			const result = await vr_exp_webapp_backend.sell_nft(principal_id, parseInt(data.nft_token_id), data.nft_description, parseInt(data.nft_price));
 
-		// Feedback to the user
-		if (result) {
-			alert("Sell Order Placed");
-		} else {
-			alert("Error Occured");
+			processing = false;
+			// Feedback to the user
+			if (result) {
+				const popup = document.getElementById("sell-card");
+				const popLine = document.getElementById("sell-line");
+
+				popup.classList.toggle("popup-card");
+				popLine.classList.toggle("popup-line");
+			} else {
+				alert("Error Occured");
+			}
+			setTimeout(() => {
+				window.location.reload();
+			}, 2500 )
 		}
-
-		window.location.reload();
 	}
 
 	const navigator = useNavigate();
 	const [nftData, setNftData] = useState([]);
 	const [tries, setTries] = useState(0);
+	let processing = false;
 
 	useEffect(() => {
 		if ((nftData.length == 0) && (tries < 5)) {	// Fetch NFT data from canister
@@ -130,6 +140,12 @@ export default function SellForm() {
 					<textarea name="nft_description" id="nft-description" placeholder="Description" className="w-7xl h-80 p-3 bg-white/10 border-2 border-[#BED1D970] focus:border-[#BED1D9] rounded-xl text-2xl text-[#BED1D9]" ></textarea>
 					<button type="submit" className="bg-[#43A7CB] text-[#BED1D9] text-2xl px-8 py-4 rounded-2xl hover:bg-[#43A7CB90] active:bg-[#43A7CB80] transition-all">List NFT For Sale</button>
 				</form>
+			</div>
+			<div id="sell-card" className="bg-[#237597] text-[#BED1D9] flex flex-col translate-y-136 translate-x-96 right-0 rounded-tl-2xl rounded-bl-2xl z-40 text-2xl font-bold absolute">
+				<div className="py-8 px-12 pr-24">
+					Sell Ordered Placed
+				</div>
+				<div id="sell-line" className="bg-[#BED1D9] h-1 w-[21rem] rounded-tl-full rounded-bl-full self-end"></div>
 			</div>
 		</section>
 	);

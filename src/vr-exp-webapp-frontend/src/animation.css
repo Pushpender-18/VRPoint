@@ -1,0 +1,29 @@
+.popup-card {
+	animation: popup 2200ms ease-in 1;
+}
+
+.popup-line {
+	animation: shrink 1500ms linear 500ms 1 forwards;
+}
+
+@keyframes shrink {
+	from {
+		width: 21rem;
+	} to {
+		width: 0rem;
+	}	
+}
+
+@keyframes popup {
+	0% {
+		transform: translateX(0rem);
+	} 23% {
+		transform: translateX(-24rem);
+	} 91% {
+		transform: translate(-24rem);
+		opacity: 1;
+	} 100% {
+		transform: translateX(0rem);
+		opacity: 0;
+	}
+}
